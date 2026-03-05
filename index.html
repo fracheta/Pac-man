@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Mini Pac-Man HTML</title>
+    <style>
+        body { background-color: #111; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        canvas { border: 2px solid #fff; background-color: #000; }
+    </style>
+</head>
+<body>
+
+<canvas id="gameCanvas" width="400" height="400"></canvas>
+
+<script>
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    let x = 200;
+    let y = 200;
+    const raio = 20;
+    const velocidade = 5;
+
+    function desenhar() {
+        // Limpa a tela
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Desenha o Pac-Man
+        ctx.beginPath();
+        ctx.arc(x, y, raio, 0.2 * Math.PI, 1.8 * Math.PI); // Cria o formato da boca
+        ctx.lineTo(x, y);
+        ctx.fillStyle = "yellow";
+        ctx.fill();
+        ctx.closePath();
+    }
+
+    function atualizar(e) {
+        if(e.key === "ArrowLeft" && x > raio) x -= velocidade;
+        if(e.key === "ArrowRight" && x < canvas.width - raio) x += velocidade;
+        if(e.key === "ArrowUp" && y > raio) y -= velocidade;
+        if(e.key === "ArrowDown" && y < canvas.height - raio) y += velocidade;
+        
+        desenhar();
+    }
+
+    // Escuta as teclas do teclado
+    window.addEventListener("keydown", atualizar);
+
+    // Desenho inicial
+    desenhar();
+</script>
+
+</body>
+</html>
